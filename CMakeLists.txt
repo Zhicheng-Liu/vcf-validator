@@ -54,7 +54,7 @@ else ()
 endif ()
 
 include_directories (${EXT_LIB_PATH}/curl/include)
-include_directories (${EXT_LIB_PATH}/openssl/include)
+#include_directories (${EXT_LIB_PATH}/openssl/include)
 
 # Compiler and linkers flags
 if (LINUX)
@@ -197,6 +197,7 @@ if (LINUX OR OSX)
     ${EXT_LIB_PATH}/curl/lib/libcurl.a
     ${EXT_LIB_PATH}/openssl/lib/libssl.a
     ${EXT_LIB_PATH}/openssl/lib/libcrypto.a
+    ${EXT_LIB_PATH}/libidn2/lib/libidn2.a
     ${Boost_LIBRARIES}
     ${EXT_LIB_PATH}/libbz2.a
     ${EXT_LIB_PATH}/libz.a

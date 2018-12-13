@@ -18,6 +18,7 @@ it installs the given dependencies:
   - zlib library                            zlib-1.2.11
   - curl library                            curl-7.62.0
   - openssl library                         openssl-1.1.1a
+  - libidn2 library                         libidn2-2.0.5
 
 for linux:
 ./install_dependencies.sh linux
@@ -91,6 +92,12 @@ cd zlib-1.2.11 && cmake . && make && cd ..
 
 echo "installing libcurl"
 dependencies_dir_abs_path=`pwd`
+wget ftp://ftp.gnu.org/gnu/libidn/libidn2-2.0.5.tar.gz -O /tmp/libidn2-2.0.5.tar.gz
+tar xzf /tmp/libidn2-2.0.5.tar.gz
+cd libidn2-2.0.5
+./configure --disable-shared --prefix=/Users/zl/work/vcf-validator/playground/libidn2
+make && make install && cd ..
+
 mkdir openssl
 wget https://www.openssl.org/source/openssl-1.1.1a.tar.gz -O /tmp/openssl-1.1.1a.tar.gz
 tar xzf /tmp/openssl-1.1.1a.tar.gz
@@ -102,7 +109,7 @@ mkdir curl
 wget https://curl.haxx.se/download/curl-7.62.0.tar.gz -O /tmp/curl-7.62.0.tar.gz
 tar zxf /tmp/curl-7.62.0.tar.gz
 cd curl-7.62.0
-LDFLAGS="-L$dependencies_dir_abs_path/openssl/lib" CPPFLAGS="-I$dependencies_dir_abs_path/openssl/include" LIBS="-lssl -lcrypto -ldl" ./configure --disable-shared --enable-static --without-librtmp --without-ca-bundle --disable-ldap --without-zlib --without-libidn2 --disable-pthreads --disable-threaded-resolver --with-ssl=$dependencies_dir_abs_path/openssl --prefix=$dependencies_dir_abs_path/curl
+LDFLAGS="-L$dependencies_dir_abs_path/openssl/lib" CPPFLAGS="-I$dependencies_dir_abs_path/openssl/include" LIBS="-lssl -lcrypto -ldl" ./configure --disable-shared --enable-static --without-librtmp --without-ca-bundle --disable-ldap --without-zlib --without-libidn2 --disable-pthreads --disable-threaded-resolver --with-libidn2=$dependencies_dir_abs_path/libidn2 --with-ssl=$dependencies_dir_abs_path/openssl --prefix=$dependencies_dir_abs_path/curl
 make && make install && cd ..
 
 # Make easier to find the static libraries
