@@ -92,7 +92,7 @@ cd zlib-1.2.11 && cmake . && make && cd ..
 
 echo "installing libcurl"
 dependencies_dir_abs_path=`pwd`
-wget ftp://ftp.gnu.org/gnu/libidn/libidn2-2.0.5.tar.gz -O /tmp/libidn2-2.0.5.tar.gz
+wget https://ftp.gnu.org/gnu/libidn/libidn2-2.0.5.tar.gz -O /tmp/libidn2-2.0.5.tar.gz
 tar xzf /tmp/libidn2-2.0.5.tar.gz
 cd libidn2-2.0.5
 ./configure --disable-shared --prefix=/Users/zl/work/vcf-validator/playground/libidn2
