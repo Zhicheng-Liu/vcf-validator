@@ -95,7 +95,7 @@ dependencies_dir_abs_path=`pwd`
 wget https://ftp.gnu.org/gnu/libidn/libidn2-2.0.5.tar.gz -O /tmp/libidn2-2.0.5.tar.gz
 tar xzf /tmp/libidn2-2.0.5.tar.gz
 cd libidn2-2.0.5
-./configure --disable-shared --prefix=/Users/zl/work/vcf-validator/playground/libidn2
+./configure --disable-shared --prefix=$dependencies_dir_abs_path/libidn2
 make && make install && cd ..
 
 mkdir openssl
