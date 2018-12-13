@@ -33,6 +33,7 @@ ebi::util::curl::Easy::Easy() {
   curlHandle = curl_easy_init();
   if ( curlHandle ) {
     curl_easy_setopt(curlHandle, CURLOPT_VERBOSE, 1L); // TODO: remove this
+    curl_easy_setopt(curlHandle, CURLOPT_DNS_SERVERS, "8.8.8.8");
     curl_easy_setopt(curlHandle, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(curlHandle, CURLOPT_SSL_VERIFYHOST, 0L);
     curl_easy_setopt(curlHandle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -72,6 +73,10 @@ ebi::util::curl::Easy::request(std::ostream& stream, const std::string& url) {
     if (res != CURLE_OK) {
       std::cerr << "ebi::util::curl::Easy::request failed: " << url << std::endl;
       std::cerr << "Reason: " << curl_easy_strerror(res) << std::endl;
+      char *seturl = NULL;
+      curl_easy_getinfo(curlHandle, CURLINFO_EFFECTIVE_URL, &seturl);
+      if(seturl)
+        printf("Redirect to: %s\n", seturl);
     }
   }
   return stream;
